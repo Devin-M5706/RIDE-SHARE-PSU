@@ -1,11 +1,11 @@
 import firebase_admin
-from firebase_admin import auth, credentials, firestore
 from django.contrib.auth.models import User
 from django.db import models
-from rest_framework import serializers, viewsets, permissions
+from firebase_admin import auth, credentials, firestore
+from rest_framework import permissions, serializers, viewsets
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.authentication import TokenAuthentication
 
 # Initialize Firebase
 cred = credentials.Certificate("path/to/your/firebase_credentials.json")
@@ -13,11 +13,17 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # Models
+#This Ride model tracks each ride request.
+#It stores the driver, passenger, pickup/dropoff locations, and ride status (e.g., requested, accepted, completed).
+#The timestamp records when the ride was created.
 class Driver(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     vehicle_info = models.CharField(max_length=255)
     is_available = models.BooleanField(default=True)
 
+#This Ride model tracks each ride request.
+#It stores the driver, passenger, pickup/dropoff locations, and ride status (e.g., requested, accepted, completed).
+#The timestamp records when the ride was created.
 class Ride(models.Model):
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True)
     passenger = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -71,7 +77,7 @@ class FirebaseAuthentication(TokenAuthentication):
             return None
 
 # Register in Django URLs
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
