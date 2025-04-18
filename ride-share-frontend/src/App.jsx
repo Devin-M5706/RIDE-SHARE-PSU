@@ -1,7 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Layout from './components/Layout';
 import { AuthProvider } from './contexts/AuthContext';
 import Dashboard from './pages/Dashboard';
 import DriverDashboard from './pages/DriverDashboard';
@@ -34,16 +34,17 @@ function App() {
       <CssBaseline />
       <AuthProvider>
         <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/request-ride" element={<RideRequest />} />
-            <Route path="/ride-history" element={<RideHistory />} />
-            <Route path="/driver-dashboard" element={<DriverDashboard />} />
-          </Routes>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/request-ride" element={<RideRequest />} />
+              <Route path="/ride-history" element={<RideHistory />} />
+              <Route path="/driver-dashboard" element={<DriverDashboard />} />
+            </Routes>
+          </Layout>
         </Router>
       </AuthProvider>
     </ThemeProvider>

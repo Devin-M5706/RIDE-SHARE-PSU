@@ -1,117 +1,142 @@
-# RIDE-SHARE-PSU
+# Penn State Ride-Share Application
 
-A full-stack ride-share app with a Django + Firebase backend and a React + Tailwind CSS frontend.
+A full-stack application that connects Penn State students for ride-sharing services, making transportation more accessible for international and domestic students.
 
----
+## Features
 
-## 🚀 Backend (Django + Firebase)
+- **User Authentication**
+  - PSU-specific email verification
+  - Secure login/signup system
+  - Role-based access (drivers/passengers)
 
-This is a Django-based backend for a ride-share application that integrates Firebase for authentication and real-time updates.
+- **Ride Management**
+  - Post ride offers and requests
+  - Search available rides
+  - Real-time ride status updates
+  - Location-based matching
 
-### ✅ Requirements
+- **Messaging System**
+  - Real-time chat between users
+  - Ride-specific conversations
+  - Message notifications
 
-- Python (>=3.x)
-- Virtual Environment (venv)
-- Django
-- Django REST Framework
+- **Payment System**
+  - Secure payment processing
+  - Multiple payment options
+  - Transaction history
+
+- **Review System**
+  - Rate and review drivers/passengers
+  - Build trust within the community
+  - View user ratings and feedback
+
+## Tech Stack
+
+### Frontend
+- React with TypeScript
+- Material-UI for components
+- React Router for navigation
+- Firebase Authentication
+- Real-time messaging with Firebase
+
+### Backend
+- Node.js with Express
+- TypeScript for type safety
+- MongoDB for database
 - Firebase Admin SDK
 
-### ⚙️ Installation
+## Project Structure
 
-#### 1️⃣ Clone the Repository
-
-```bash
-git clone <repository-url>
-cd ride-share-backend
+```
+RIDE-SHARE-PSU/
+├── frontend/                # React frontend application
+│   ├── public/             # Static files
+│   │   ├── components/     # React components
+│   │   ├── services/       # API services
+│   │   ├── utils/          # Utility functions
+│   │   └── types/          # TypeScript types
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── backend/                # Node.js backend application
+│   ├── src/
+│   │   ├── controllers/   # Route controllers
+│   │   ├── models/        # Database models
+│   │   ├── routes/        # API routes
+│   │   └── services/      # Business logic
+│   ├── package.json
+│   └── tsconfig.json
+│
+└── README.md
 ```
 
-#### 2️⃣ Set Up Virtual Environment
+## Getting Started
 
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+- MongoDB
+- Firebase account
+
+### Installation
+
+1. Clone the repository
 ```bash
-python -m venv venv
-venv\Scripts\activate      # On Windows
-source venv/bin/activate   # On macOS/Linux
+git clone https://github.com/Devin-M5706/RIDE-SHARE-PSU.git
+cd RIDE-SHARE-PSU
 ```
 
-#### 3️⃣ Install Dependencies
-
+2. Install frontend dependencies
 ```bash
-pip install django djangorestframework firebase-admin
-```
-
-#### 4️⃣ Set Up Firebase
-
-- Go to [Firebase Console](https://console.firebase.google.com/)
-- Create a project and enable **Authentication**
-- Download the **Admin SDK JSON**
-- Place it in your project folder and update your backend code to reference it
-
-#### 5️⃣ Run Migrations
-
-```bash
-python manage.py migrate
-```
-
-#### 6️⃣ Run the Backend
-
-```bash
-python manage.py runserver
-```
-
-### 🧪 API Endpoints
-
-- `GET/POST /api/rides/` — Manage rides
-- `POST /api/rides/{id}/accept_ride/` — Accept a ride as a driver
-
----
-
-## 💻 Frontend (React + Vite + Tailwind CSS)
-
-This frontend is built with **React**, styled with **Tailwind CSS**, and uses **React Router** for routing.
-
-### 🔧 Setup Instructions
-
-#### 1️⃣ Navigate to the frontend directory
-
-```bash
-cd ride-share-frontend
-```
-
-#### 2️⃣ Install dependencies
-
-```bash
+cd frontend
 npm install
 ```
 
-#### 3️⃣ Start the frontend dev server
-
+3. Install backend dependencies
 ```bash
+cd ../backend
+npm install
+```
+
+4. Set up environment variables
+- Create `.env` files in both frontend and backend directories
+- Add necessary environment variables (see `.env.example` files)
+
+5. Start the development servers
+```bash
+# In frontend directory
+npm start
+
+# In backend directory
 npm run dev
 ```
 
-Visit [http://localhost:5173](http://localhost:5173)
+## Development Guidelines
 
-### 🔀 Routes
+### Code Style
+- Use TypeScript for type safety
+- Follow ESLint and Prettier configurations
+- Write meaningful commit messages
+- Document complex functions and components
 
-- `/` — **Login Page** (mock login with role selection)
-- `/driver` — **Driver Dashboard** (view and accept rides)
-- `/passenger` — **Passenger Dashboard** (request and view ride history)
+### Branch Strategy
+- `main`: Production-ready code
+- `develop`: Development branch
+- Feature branches: `feature/feature-name`
+- Bug fixes: `fix/bug-name`
 
-### 🌐 Frontend–Backend Integration
+## Contributing
 
-- Frontend fetches ride data from `http://localhost:8000/api/rides/`
-- Mock login saves a token to `localStorage`
-- Firebase Auth integration can be added later for production
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### 📦 Stack Summary
+## License
 
-- **Backend:** Django + Firebase Admin SDK
-- **Frontend:** Vite + React + Tailwind CSS
-- **Routing:** React Router
-- **Auth:** Mock token for now (JWT via Firebase in future)
-- **API Communication:** REST using `fetch()`
+This project is licensed under the MIT License - see the LICENSE file for details.
 
----
+## Contact
 
-Enjoy the ride-share app! 🚗🚀
-hello
+Devin Myers - [GitHub](https://github.com/Devin-M5706)
