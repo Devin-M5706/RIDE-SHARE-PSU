@@ -1,6 +1,10 @@
 # Penn State Ride-Share Application
 
 A full-stack application that connects Penn State students for ride-sharing services, making transportation more accessible for international and domestic students.
+
+(to launch use this command in the terminal)
+> cd ride-share-frontend && npm install
+
 ![Screenshot 20![Screenshot 2025-04-19 014517](https://github.com/user-attachments/assets/472392da-8061-4218-9090-24ad52c9b188)
 25-04-19 014510](https://github.com/user-attachments/assets/df4c8362-e855-490e-baab-e37824abd357)
 
