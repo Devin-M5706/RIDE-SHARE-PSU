@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import drivuLogo from '../assets/drivu-logo.svg';
+import drivuLogo from '../assets/drivu-logo.png';
 import { useAuth } from '../contexts/AuthContext';
 
 function Home() {

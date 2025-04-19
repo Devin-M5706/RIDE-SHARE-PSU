@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import drivuLogo from '../assets/drivu-logo.svg';
+import drivuLogo from '../assets/drivu-logo.png';
 import { useAuth } from '../contexts/AuthContext';
 
 interface LayoutProps {
