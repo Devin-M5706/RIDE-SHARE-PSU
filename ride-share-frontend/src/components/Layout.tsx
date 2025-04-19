@@ -75,7 +75,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     component="img"
                     src={drivuLogo}
                     alt="Drivu"
-                    sx={{ height: 40, width: 40 }}
+                    sx={{ 
+                        height: 48, 
+                        width: 48,
+                        transition: 'transform 0.3s ease-in-out',
+                        '&:hover': {
+                            transform: 'scale(1.1)',
+                        }
+                    }}
                 />
                 <Typography variant="h6" noWrap sx={{ color: theme.palette.primary.main }}>
                     Drivu
@@ -124,10 +131,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         src={drivuLogo}
                         alt="Drivu"
                         sx={{ 
-                            height: 32, 
-                            width: 32,
+                            height: 40, 
+                            width: 40,
                             mr: 2,
-                            display: { xs: 'none', sm: 'block' }
+                            display: { xs: 'none', sm: 'block' },
+                            transition: 'transform 0.3s ease-in-out',
+                            '&:hover': {
+                                transform: 'scale(1.1)',
+                            }
                         }}
                     />
                     <Typography 
