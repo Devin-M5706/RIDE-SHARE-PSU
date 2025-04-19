@@ -24,6 +24,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import drivuLogo from '../assets/drivu-logo.svg';
 import { useAuth } from '../contexts/AuthContext';
 
 interface LayoutProps {
@@ -69,9 +70,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
     const drawer = (
         <div>
-            <Toolbar>
-                <Typography variant="h6" noWrap>
-                    Penn State Rides
+            <Toolbar sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Box
+                    component="img"
+                    src={drivuLogo}
+                    alt="Drivu"
+                    sx={{ height: 40, width: 40 }}
+                />
+                <Typography variant="h6" noWrap sx={{ color: theme.palette.primary.main }}>
+                    Drivu
                 </Typography>
             </Toolbar>
             <List>
@@ -82,7 +89,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         onClick={() => handleNavigation(item.path)}
                         selected={location.pathname === item.path}
                     >
-                        <ListItemIcon>{item.icon}</ListItemIcon>
+                        <ListItemIcon sx={{ color: theme.palette.primary.main }}>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} />
                     </ListItem>
                 ))}
@@ -98,6 +105,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 sx={{
                     width: { sm: `calc(100% - ${drawerWidth}px)` },
                     ml: { sm: `${drawerWidth}px` },
+                    background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',
+                    borderBottom: `1px solid ${theme.palette.primary.main}`,
                 }}
             >
                 <Toolbar>
@@ -110,28 +119,67 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-                        Penn State Ride-Share
+                    <Box
+                        component="img"
+                        src={drivuLogo}
+                        alt="Drivu"
+                        sx={{ 
+                            height: 32, 
+                            width: 32,
+                            mr: 2,
+                            display: { xs: 'none', sm: 'block' }
+                        }}
+                    />
+                    <Typography 
+                        variant="h6" 
+                        noWrap 
+                        component="div" 
+                        sx={{ 
+                            flexGrow: 1,
+                            color: theme.palette.primary.main,
+                            fontWeight: 600
+                        }}
+                    >
+                        Drivu
                     </Typography>
                     {!currentUser ? (
                         <Box>
                             <Button
-                                color="inherit"
+                                color="primary"
                                 onClick={() => handleNavigation('/login')}
+                                sx={{
+                                    mr: 1,
+                                    '&:hover': {
+                                        transform: 'translateY(-2px)',
+                                    },
+                                    transition: 'transform 0.2s'
+                                }}
                             >
                                 Login
                             </Button>
                             <Button
-                                color="inherit"
-                                onClick={() => handleNavigation('/signup')}
+                                variant="contained"
+                                onClick={() => handleNavigation('/register')}
+                                sx={{
+                                    '&:hover': {
+                                        transform: 'translateY(-2px)',
+                                    },
+                                    transition: 'transform 0.2s'
+                                }}
                             >
                                 Sign Up
                             </Button>
                         </Box>
                     ) : (
                         <IconButton
-                            color="inherit"
+                            color="primary"
                             onClick={handleLogout}
+                            sx={{
+                                '&:hover': {
+                                    transform: 'rotate(180deg)',
+                                },
+                                transition: 'transform 0.3s'
+                            }}
                         >
                             <ExitToApp />
                         </IconButton>
@@ -154,6 +202,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         '& .MuiDrawer-paper': {
                             boxSizing: 'border-box',
                             width: drawerWidth,
+                            borderRight: `1px solid ${theme.palette.primary.main}`,
                         },
                     }}
                 >
@@ -166,6 +215,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         '& .MuiDrawer-paper': {
                             boxSizing: 'border-box',
                             width: drawerWidth,
+                            borderRight: `1px solid ${theme.palette.primary.main}`,
                         },
                     }}
                     open
