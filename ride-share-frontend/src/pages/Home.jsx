@@ -53,16 +53,15 @@ function Home() {
   ];
 
   return (
-    <Box>
+    <Box sx={{ bgcolor: '#000000' }}>
       {/* Hero Section */}
       <Fade in={showContent} timeout={1000}>
         <Box
           sx={{
-            bgcolor: 'primary.main',
             color: 'white',
             py: 8,
             mb: 6,
-            background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+            background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',
           }}
         >
           <Container maxWidth="md">
@@ -70,23 +69,32 @@ function Home() {
               <Grid item xs={12} md={6}>
                 <Slide direction="right" in={showContent} timeout={1000}>
                   <Box>
-                    <Typography variant="h2" component="h1" gutterBottom>
+                    <Typography 
+                      variant="h2" 
+                      component="h1" 
+                      gutterBottom
+                      sx={{ 
+                        color: '#FFDAB9',
+                        textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                      }}
+                    >
                       Welcome to Drivu
                     </Typography>
-                    <Typography variant="h5" sx={{ mb: 4 }}>
+                    <Typography variant="h5" sx={{ mb: 4, color: '#FFE5B4' }}>
                       Your premium ride-sharing experience at Penn State. Safe, reliable, and convenient.
                     </Typography>
                     <Button
                       variant="contained"
-                      color="secondary"
                       size="large"
                       onClick={() => navigate(currentUser ? '/request-ride' : '/register')}
                       sx={{
-                        background: 'linear-gradient(45deg, #FF6B6B 30%, #FFE66D 90%)',
-                        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+                        background: 'linear-gradient(45deg, #FFDAB9 30%, #FFE5B4 90%)',
+                        color: '#000000',
+                        boxShadow: '0 3px 5px 2px rgba(255,218,185, .3)',
                         transition: 'transform 0.3s ease-in-out',
                         '&:hover': {
                           transform: 'scale(1.05)',
+                          background: 'linear-gradient(45deg, #FFE5B4 30%, #FFDAB9 90%)',
                         }
                       }}
                     >
@@ -105,7 +113,7 @@ function Home() {
                       width: '100%',
                       maxWidth: 500,
                       borderRadius: 2,
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+                      boxShadow: '0 4px 20px rgba(255,218,185,0.25)',
                       transition: 'transform 0.3s ease-in-out',
                       '&:hover': {
                         transform: 'scale(1.02)',
@@ -122,7 +130,13 @@ function Home() {
       {/* Features Section */}
       <Container maxWidth="lg" sx={{ mb: 8 }}>
         <Fade in={showContent} timeout={1500}>
-          <Typography variant="h3" component="h2" align="center" gutterBottom>
+          <Typography 
+            variant="h3" 
+            component="h2" 
+            align="center" 
+            gutterBottom
+            sx={{ color: '#FFDAB9' }}
+          >
             Why Choose Drivu
           </Typography>
         </Fade>
@@ -138,20 +152,22 @@ function Home() {
                     alignItems: 'center',
                     textAlign: 'center',
                     transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                    background: 'linear-gradient(135deg, #1a1a1a 0%, #000000 100%)',
+                    border: '1px solid #FFDAB9',
                     '&:hover': {
                       transform: 'translateY(-8px)',
-                      boxShadow: '0 12px 20px rgba(0,0,0,0.2)',
+                      boxShadow: '0 12px 20px rgba(255,218,185,0.2)',
                     }
                   }}
                 >
                   <CardContent>
-                    <Box sx={{ color: 'primary.main', mb: 2 }}>
+                    <Box sx={{ color: '#FFDAB9', mb: 2 }}>
                       {feature.icon}
                     </Box>
-                    <Typography variant="h6" component="h3" gutterBottom>
+                    <Typography variant="h6" component="h3" gutterBottom sx={{ color: '#FFE5B4' }}>
                       {feature.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: '#FFDAB9' }}>
                       {feature.description}
                     </Typography>
                   </CardContent>
@@ -163,7 +179,7 @@ function Home() {
       </Container>
 
       {/* CTA Section */}
-      <Box sx={{ bgcolor: 'grey.100', py: 8 }}>
+      <Box sx={{ bgcolor: '#1a1a1a', py: 8 }}>
         <Container maxWidth="md">
           <Slide direction="up" in={showContent} timeout={1500}>
             <Paper
@@ -171,31 +187,33 @@ function Home() {
               sx={{
                 p: 4,
                 textAlign: 'center',
-                background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
-                color: 'white',
+                background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',
+                border: '1px solid #FFDAB9',
+                color: '#FFE5B4',
                 transition: 'transform 0.3s ease-in-out',
                 '&:hover': {
                   transform: 'scale(1.02)',
                 }
               }}
             >
-              <Typography variant="h4" component="h2" gutterBottom>
+              <Typography variant="h4" component="h2" gutterBottom sx={{ color: '#FFDAB9' }}>
                 Ready to Experience Drivu?
               </Typography>
-              <Typography variant="h6" sx={{ mb: 4 }}>
+              <Typography variant="h6" sx={{ mb: 4, color: '#FFE5B4' }}>
                 Join our exclusive community of Penn State riders and drivers today.
               </Typography>
               <Button
                 variant="contained"
-                color="secondary"
                 size="large"
                 onClick={() => navigate('/register')}
                 sx={{
-                  background: 'linear-gradient(45deg, #FF6B6B 30%, #FFE66D 90%)',
-                  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+                  background: 'linear-gradient(45deg, #FFDAB9 30%, #FFE5B4 90%)',
+                  color: '#000000',
+                  boxShadow: '0 3px 5px 2px rgba(255,218,185, .3)',
                   transition: 'transform 0.3s ease-in-out',
                   '&:hover': {
                     transform: 'scale(1.05)',
+                    background: 'linear-gradient(45deg, #FFE5B4 30%, #FFDAB9 90%)',
                   }
                 }}
               >

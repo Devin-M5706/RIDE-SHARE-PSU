@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
@@ -10,23 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import RideHistory from './pages/RideHistory';
 import RideRequest from './pages/RideRequest';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-    background: {
-      default: '#f5f5f5',
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-});
+import theme from './theme';
 
 function App() {
   return (
