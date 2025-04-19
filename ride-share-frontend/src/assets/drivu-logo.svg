@@ -1,54 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-  <!-- Background Circle -->
-  <circle cx="500" cy="500" r="490" fill="#f5f5dc"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600">
+  <!-- Background -->
+  <rect width="500" height="600" fill="#FFDAB9"/>
   
-  <!-- Sky -->
-  <path d="M150,150 Q500,100 850,150 L850,500 Q500,450 150,500 Z" fill="#87CEEB" opacity="0.8"/>
-  
-  <!-- Mountains -->
-  <path d="M200,300 L500,100 L800,300" fill="#4682B4" opacity="0.4"/>
-  <path d="M300,350 L500,200 L700,350" fill="#4682B4" opacity="0.6"/>
-  
-  <!-- Globe -->
-  <circle cx="500" cy="200" r="80" fill="#4682B4"/>
-  <path d="M440,180 Q500,150 560,180 Q500,220 440,180" fill="#90EE90"/>
-  <path d="M460,160 Q500,130 540,160" fill="none" stroke="#90EE90" stroke-width="8"/>
-  
-  <!-- Hills -->
-  <path d="M100,500 Q300,400 500,500 Q700,400 900,500" fill="#90EE90" opacity="0.8"/>
-  
-  <!-- Pagodas -->
-  <g fill="#2F4F4F">
-    <path d="M300,400 L330,400 L315,370 Z"/>
-    <path d="M400,380 L430,380 L415,350 Z"/>
-    <path d="M500,400 L530,400 L515,370 Z"/>
-    <rect x="310" y="400" width="10" height="20"/>
-    <rect x="410" y="380" width="10" height="20"/>
-    <rect x="510" y="400" width="10" height="20"/>
+  <!-- Car and Circle Group -->
+  <g transform="translate(50, 50)">
+    <!-- Circle -->
+    <circle cx="200" cy="200" r="180" fill="none" stroke="#000000" stroke-width="20"/>
+    
+    <!-- McLaren Silhouette -->
+    <g transform="translate(45, 120) scale(0.7)">
+      <!-- Main Body -->
+      <path d="
+        M50,150 
+        C50,150 100,150 150,150
+        C200,150 250,150 300,150
+        C350,150 400,150 400,150
+        C400,150 380,120 350,100
+        C320,80 300,70 250,70
+        C200,70 180,80 150,100
+        C120,120 100,150 100,150
+        L50,150
+        C50,150 70,180 100,200
+        C130,220 150,230 200,230
+        C250,230 270,220 300,200
+        C330,180 350,150 350,150
+        L400,150
+        Z" 
+        fill="#000000"
+      />
+      <!-- Front Details -->
+      <path d="M150,100 L200,120 L250,100" fill="none" stroke="#000000" stroke-width="8"/>
+      <!-- Wheel Arches -->
+      <path d="M120,150 C120,180 150,200 180,180" fill="none" stroke="#000000" stroke-width="8"/>
+      <path d="M270,150 C270,180 300,200 330,180" fill="none" stroke="#000000" stroke-width="8"/>
+    </g>
   </g>
   
-  <!-- Cherry Blossoms -->
-  <g fill="#FFB6C1">
-    <circle cx="280" cy="380" r="5"/>
-    <circle cx="290" cy="370" r="5"/>
-    <circle cx="270" cy="375" r="5"/>
-    <circle cx="380" cy="360" r="5"/>
-    <circle cx="390" cy="350" r="5"/>
-    <circle cx="370" cy="355" r="5"/>
+  <!-- Drivu Text -->
+  <g transform="translate(50, 450)">
+    <text x="200" y="0" font-family="Arial Black, sans-serif" font-size="100" text-anchor="middle" fill="#000000" font-weight="900">Drivu</text>
   </g>
-  
-  <!-- Road -->
-  <path d="M200,600 Q500,550 800,600" fill="none" stroke="#696969" stroke-width="30"/>
-  
-  <!-- McLaren Car -->
-  <g transform="translate(450,550) scale(0.8)">
-    <path d="M0,0 Q100,-30 200,0 Q150,50 50,50 Q0,20 0,0" fill="#00BFFF"/>
-    <path d="M20,10 L180,-10" fill="none" stroke="#000" stroke-width="2"/>
-    <circle cx="50" cy="45" r="15" fill="#1a1a1a"/>
-    <circle cx="150" cy="45" r="15" fill="#1a1a1a"/>
-  </g>
-  
-  <!-- Text -->
-  <text x="500" y="800" font-family="Arial Black" font-size="100" text-anchor="middle" fill="#2F4F4F">Drivu</text>
 </svg> 
