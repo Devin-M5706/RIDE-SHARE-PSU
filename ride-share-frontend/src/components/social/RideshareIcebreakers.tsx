@@ -1,26 +1,25 @@
-import React, { useState } from 'react';
 import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Button,
-  Stack,
-  IconButton,
-  Chip,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from '@mui/material';
-import {
-  Chat,
-  School,
-  Work,
-  EmojiPeople,
-  Refresh,
-  Star,
+    Chat,
+    EmojiPeople,
+    Refresh,
+    School,
+    Star,
+    Work,
 } from '@mui/icons-material';
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    Chip,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Stack,
+    Typography
+} from '@mui/material';
+import React, { useState } from 'react';
 
 interface IcebreakPrompt {
   id: string;
@@ -33,19 +32,19 @@ const prompts: IcebreakPrompt[] = [
   {
     id: '1',
     category: 'Academic',
-    question: 'What's your favorite class this semester?',
+    question: "What's your favorite class this semester?",
     icon: <School />,
   },
   {
     id: '2',
     category: 'Career',
-    question: 'What internships or jobs are you interested in?',
+    question: "What internships or jobs are you interested in?",
     icon: <Work />,
   },
   {
     id: '3',
     category: 'Campus Life',
-    question: 'What's your favorite spot on campus to study?',
+    question: "What's your favorite spot on campus to study?",
     icon: <EmojiPeople />,
   },
 ];

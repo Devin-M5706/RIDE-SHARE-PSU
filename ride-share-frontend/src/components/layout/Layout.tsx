@@ -1,7 +1,6 @@
 import {
     AccountCircle,
     DirectionsCar,
-    Groups,
     Language,
     Menu as MenuIcon,
     NightsStay,
@@ -20,11 +19,15 @@ import {
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
 
-  const handleMenu = (event) => {
+  const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -32,7 +35,7 @@ const Layout = ({ children }) => {
     setAnchorEl(null);
   };
 
-  const handleNavigate = (path) => {
+  const handleNavigate = (path: string) => {
     navigate(path);
     handleClose();
   };
@@ -76,9 +79,6 @@ const Layout = ({ children }) => {
             <MenuItem onClick={() => handleNavigate('/dashboard')}>Dashboard</MenuItem>
             <MenuItem onClick={() => handleNavigate('/request-ride')}>Request Ride</MenuItem>
             <MenuItem onClick={() => handleNavigate('/ride-history')}>Ride History</MenuItem>
-            <MenuItem onClick={() => handleNavigate('/social')}>
-              <Groups sx={{ mr: 1 }} /> Social Hub
-            </MenuItem>
             <MenuItem onClick={() => handleNavigate('/features')}>
               <Language sx={{ mr: 1 }} /> International Features
             </MenuItem>

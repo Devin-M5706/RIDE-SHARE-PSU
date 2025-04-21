@@ -2,7 +2,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import SocialHub from './components/social/SocialHub';
 import { AuthProvider } from './contexts/AuthContext';
 import Dashboard from './pages/Dashboard';
 import DriverDashboard from './pages/DriverDashboard';
@@ -89,7 +88,6 @@ function App() {
               <Route path="/ride-history" element={<RideHistory />} />
               <Route path="/driver-dashboard" element={<DriverDashboard />} />
               <Route path="/features" element={<Features />} />
-              <Route path="/social" element={<SocialHub />} />
             </Routes>
           </Layout>
         </Router>

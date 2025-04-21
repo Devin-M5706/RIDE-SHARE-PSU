@@ -16,8 +16,8 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import React, { useState } from 'react';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -35,17 +35,12 @@ interface RidePostData {
     dropoffLng: number | null;
 }
 
-const containerStyle = {
-    width: '100%',
-    height: '400px',
-};
-
-const defaultCenter = {
-    lat: 40.7934, // Penn State coordinates
-    lng: -77.8600,
-};
-
 const RidePostForm: React.FC = () => {
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+    });
+
     const [formData, setFormData] = useState<RidePostData>({
         pickupLocation: '',
         dropoffLocation: '',
@@ -62,9 +57,28 @@ const RidePostForm: React.FC = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string>('');
-    const [map, setMap] = useState<any>(null);
+    const [map, setMap] = useState<google.maps.Map | null>(null);
+    const [isSettingPickup, setIsSettingPickup] = useState(true);
     const { currentUser } = useAuth();
     const navigate = useNavigate();
+
+    const containerStyle = useMemo(() => ({
+        width: '100%',
+        height: '400px',
+    }), []);
+
+    const defaultCenter = useMemo(() => ({
+        lat: 40.7934, // Penn State coordinates
+        lng: -77.8600,
+    }), []);
+
+    const onLoad = useCallback((map: google.maps.Map) => {
+        setMap(map);
+    }, []);
+
+    const onUnmount = useCallback(() => {
+        setMap(null);
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
         const { name, value } = e.target;
@@ -81,8 +95,42 @@ const RidePostForm: React.FC = () => {
         }));
     };
 
-    const handleMapLoad = (map: any) => {
-        setMap(map);
+    const handleMapClick = async (e: google.maps.MouseEvent) => {
+        const lat = e.latLng?.lat();
+        const lng = e.latLng?.lng();
+        
+        if (lat && lng) {
+            try {
+                setLoading(true);
+                const response = await fetch(
+                    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`
+                );
+                const data = await response.json();
+                
+                if (data.results && data.results[0]) {
+                    const address = data.results[0].formatted_address;
+                    if (isSettingPickup) {
+                        setFormData(prev => ({
+                            ...prev,
+                            pickupLocation: address,
+                            pickupLat: lat,
+                            pickupLng: lng,
+                        }));
+                    } else {
+                        setFormData(prev => ({
+                            ...prev,
+                            dropoffLocation: address,
+                            dropoffLat: lat,
+                            dropoffLng: lng,
+                        }));
+                    }
+                }
+            } catch (err) {
+                setError('Failed to get address for selected location');
+            } finally {
+                setLoading(false);
+            }
+        }
     };
 
     const handleLocationSearch = async (location: string, isPickup: boolean) => {
@@ -111,7 +159,7 @@ const RidePostForm: React.FC = () => {
                         dropoffLng: location.lng,
                     }));
                 }
-                map.panTo(location);
+                map?.panTo(location);
             } else {
                 setError(`${isPickup ? 'Pickup' : 'Dropoff'} location not found`);
             }
@@ -207,7 +255,10 @@ const RidePostForm: React.FC = () => {
                         />
                         <Button
                             variant="contained"
-                            onClick={() => handleLocationSearch(formData.pickupLocation, true)}
+                            onClick={() => {
+                                setIsSettingPickup(true);
+                                handleLocationSearch(formData.pickupLocation, true);
+                            }}
                             disabled={loading}
                             sx={{ mt: 2 }}
                         >
@@ -228,7 +279,10 @@ const RidePostForm: React.FC = () => {
                         />
                         <Button
                             variant="contained"
-                            onClick={() => handleLocationSearch(formData.dropoffLocation, false)}
+                            onClick={() => {
+                                setIsSettingPickup(false);
+                                handleLocationSearch(formData.dropoffLocation, false);
+                            }}
                             disabled={loading}
                             sx={{ mt: 2 }}
                         >
@@ -236,12 +290,27 @@ const RidePostForm: React.FC = () => {
                         </Button>
                     </Box>
 
-                    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+                    <Box sx={{ mb: 2 }}>
+                        <Typography variant="body2" color="text.secondary" gutterBottom>
+                            Click on the map to set {isSettingPickup ? 'pickup' : 'dropoff'} location
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            onClick={() => setIsSettingPickup(!isSettingPickup)}
+                            sx={{ mb: 2 }}
+                        >
+                            Switch to {isSettingPickup ? 'Dropoff' : 'Pickup'} Mode
+                        </Button>
+                    </Box>
+
+                    {isLoaded ? (
                         <GoogleMap
                             mapContainerStyle={containerStyle}
                             center={defaultCenter}
                             zoom={13}
-                            onLoad={handleMapLoad}
+                            onLoad={onLoad}
+                            onUnmount={onUnmount}
+                            onClick={handleMapClick}
                         >
                             {formData.pickupLat && formData.pickupLng && (
                                 <Marker
@@ -262,7 +331,18 @@ const RidePostForm: React.FC = () => {
                                 />
                             )}
                         </GoogleMap>
-                    </LoadScript>
+                    ) : (
+                        <Box sx={{ 
+                            width: '100%', 
+                            height: '400px', 
+                            display: 'flex', 
+                            justifyContent: 'center', 
+                            alignItems: 'center',
+                            bgcolor: 'grey.100' 
+                        }}>
+                            <CircularProgress />
+                        </Box>
+                    )}
 
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
@@ -276,43 +356,44 @@ const RidePostForm: React.FC = () => {
                     {formData.isDriver && (
                         <>
                             <TextField
-                                margin="normal"
-                                required
                                 fullWidth
+                                type="number"
                                 label="Available Seats"
                                 name="availableSeats"
-                                type="number"
                                 value={formData.availableSeats}
                                 onChange={handleChange}
-                                inputProps={{ min: 1, max: 8 }}
+                                margin="normal"
+                                InputProps={{
+                                    inputProps: { min: 1 }
+                                }}
                             />
 
                             <TextField
-                                margin="normal"
-                                required
                                 fullWidth
+                                type="number"
                                 label="Price per Seat"
                                 name="pricePerSeat"
-                                type="number"
                                 value={formData.pricePerSeat}
                                 onChange={handleChange}
+                                margin="normal"
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                                    inputProps: { min: 0, step: 0.01 }
                                 }}
                             />
                         </>
                     )}
 
                     <TextField
-                        margin="normal"
                         fullWidth
-                        label="Additional Details"
-                        name="description"
                         multiline
                         rows={4}
+                        label="Additional Details"
+                        name="description"
                         value={formData.description}
                         onChange={handleChange}
-                        helperText="Add any additional information about the ride"
+                        margin="normal"
+                        placeholder="Add any additional information about the ride..."
                     />
 
                     <Button
